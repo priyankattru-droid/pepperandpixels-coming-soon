@@ -100,7 +100,8 @@
     /* ── Hero ── */
     .stage {
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      align-items: center;
       padding: 2rem 2rem 4rem;
     }
 
@@ -136,7 +137,23 @@
     .stack:hover .paper-back-2 { transform: rotate(5deg) translateY(10px) translateX(5px); }
     .stack:hover .paper-back-1 { transform: rotate(-2.5deg) translateY(5px); }
 
-    .card {
+    /* ── Flip: the note turns over to show "hi" ── */
+    .stack { perspective: 1200px; cursor: pointer; }
+
+    .flip {
+      display: grid;
+      transform-style: preserve-3d;
+      transition: transform 0.7s cubic-bezier(0.3, 1.3, 0.5, 1);
+    }
+
+    .stack.is-flipped .flip { transform: rotateY(180deg); }
+
+    @media (hover: hover) and (pointer: fine) {
+      .stack:not(.is-flipped):hover .flip { transform: rotateY(-8deg) rotateX(2deg); }
+    }
+
+    .face {
+      grid-area: 1 / 1;
       position: relative;
       background-color: var(--card-bg);
       background-image: radial-gradient(circle, var(--card-dot) 1px, transparent 1px);
@@ -144,14 +161,69 @@
       border-radius: 4px;
       padding: 3rem 2.5rem 2.25rem;
       box-shadow: 0 6px 24px var(--shadow);
-      transition: transform 0.12s ease, box-shadow 0.3s ease;
-      will-change: transform;
+      transition: box-shadow 0.3s ease;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
     }
 
-    .stack:hover .card { box-shadow: 0 12px 40px var(--shadow-hover); }
+    .stack:hover .face { box-shadow: 0 12px 40px var(--shadow-hover); }
+
+    .face-back {
+      transform: rotateY(180deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .face-back img {
+      width: 100%;
+      max-width: 340px;
+      height: auto;
+    }
+
+    .flip-btn {
+      position: absolute;
+      right: 0.5rem;
+      bottom: 0.5rem;
+      z-index: 2;
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border: 0;
+      border-radius: 50%;
+      background: transparent;
+      color: var(--ink-faded);
+      font-size: 1.15rem;
+      cursor: pointer;
+      transition: color 0.2s ease, transform 0.3s ease;
+    }
+
+    .flip-btn:hover { color: var(--accent); transform: rotate(-30deg); }
+
+    .flip-btn:focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .flip-hint {
+      margin-top: 1.5rem;
+      text-align: center;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-faded);
+    }
+
+    .flip-hint .on-desktop { display: none; }
+    @media (hover: hover) and (pointer: fine) {
+      .flip-hint .on-touch { display: none; }
+      .flip-hint .on-desktop { display: inline; }
+    }
 
     .clip-wrap {
       position: absolute;
+      z-index: 3;
       top: -28px;
       left: 2.25rem;
       transform-origin: top center;
@@ -393,11 +465,11 @@
 
     /* ── Mobile ── */
     @media (max-width: 480px) {
-      .topbar  { padding: 1.2rem 1rem; }
-      .stage   { padding: 1.75rem 1rem 3rem; }
-      .card    { padding: 2.5rem 1.5rem 1.75rem; }
-      .section { padding: 2.5rem 1rem; }
-      .footer  { padding: 1.5rem 1rem 2rem; }
+      .topbar  { padding: 1.2rem 1.5rem; }
+      .stage   { padding: 1.75rem 1.5rem 3rem; }
+      .face    { padding: 2.5rem 1.5rem 1.75rem; }
+      .section { padding: 2.5rem 1.5rem; }
+      .footer  { padding: 1.5rem 1.5rem 2rem; }
     }
   </style>
   <link rel="stylesheet" href="assets/library-cards.css" />
@@ -429,28 +501,43 @@
         <div class="paper-back paper-back-2" aria-hidden="true"></div>
         <div class="paper-back paper-back-1" aria-hidden="true"></div>
 
-        <div class="card" id="card">
-          <div class="clip-wrap" aria-hidden="true">
-            <svg viewBox="0 0 24 58" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 56C6.5 56 2 51.5 2 46V13C2 7 7 2 13 2C19 2 23 7 23 13V44" stroke-width="2" stroke-linecap="round"/>
-              <path d="M12 50C8.7 50 7 47.5 7 46V18C7 14.7 9.7 12 13 12C16.3 12 19 14.7 19 18V44" stroke-width="2" stroke-linecap="round"/>
-            </svg>
+        <div class="clip-wrap" aria-hidden="true">
+          <svg viewBox="0 0 24 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 56C6.5 56 2 51.5 2 46V13C2 7 7 2 13 2C19 2 23 7 23 13V44" stroke-width="2" stroke-linecap="round"/>
+            <path d="M12 50C8.7 50 7 47.5 7 46V18C7 14.7 9.7 12 13 12C16.3 12 19 14.7 19 18V44" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+
+        <div class="flip">
+          <div class="face face-front">
+            <p class="eyebrow">Human Behaviour &nbsp;·&nbsp; Strategy &nbsp;·&nbsp; Craft</p>
+
+            <h1 class="name">
+              Priyanka
+              <span class="second">Chandran<span class="period" aria-hidden="true">.</span></span>
+            </h1>
+
+            <div class="divider" aria-hidden="true"></div>
+
+            <p class="positioning">Research-led product designer. I spend my days understanding how people learn, then designing products that make it easier.</p>
+
+            <p class="meta-row">Five years in EdTech &nbsp;·&nbsp; UX + Visual Design &nbsp;·&nbsp; Kochi, India</p>
           </div>
 
-          <p class="eyebrow">Human Behaviour &nbsp;·&nbsp; Strategy &nbsp;·&nbsp; Craft</p>
-
-          <h1 class="name">
-            Priyanka
-            <span class="second">Chandran<span class="period" aria-hidden="true">.</span></span>
-          </h1>
-
-          <div class="divider" aria-hidden="true"></div>
-
-          <p class="positioning">Research-led product designer. I spend my days understanding how people learn, then designing products that make it easier.</p>
-
-          <p class="meta-row">Five years in EdTech &nbsp;·&nbsp; UX + Visual Design &nbsp;·&nbsp; Kochi, India</p>
+          <div class="face face-back" aria-hidden="true" inert>
+            <img src="assets/hi.webp" width="700" height="549" alt="Hi, handwritten, with a heart and flourishes" />
+          </div>
         </div>
+
+        <button class="flip-btn" type="button" aria-pressed="false" aria-label="Flip the note">
+          <span aria-hidden="true">↻</span>
+        </button>
       </div>
+
+      <p class="flip-hint" aria-hidden="true">
+        <span class="on-touch">Tap the note to say hi</span>
+        <span class="on-desktop">Click the note to say hi</span>
+      </p>
     </section>
 
     <section class="section" aria-labelledby="do-heading">

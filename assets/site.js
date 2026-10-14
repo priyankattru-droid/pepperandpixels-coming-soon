@@ -19,6 +19,26 @@
     items.forEach(function (el) { io.observe(el); });
   }
 
+  // Hero note flips to show "hi" (tap on phones, click on desktop)
+  var stack = document.getElementById('stack');
+  var flipBtn = stack.querySelector('.flip-btn');
+  var front = stack.querySelector('.face-front');
+  var back = stack.querySelector('.face-back');
+
+  function toggleFlip() {
+    var flipped = stack.classList.toggle('is-flipped');
+    flipBtn.setAttribute('aria-pressed', String(flipped));
+    [[front, flipped], [back, !flipped]].forEach(function (pair) {
+      pair[0].toggleAttribute('inert', pair[1]);
+      pair[0].setAttribute('aria-hidden', String(pair[1]));
+    });
+  }
+
+  stack.addEventListener('click', function (e) {
+    if (e.target.closest('a')) return;
+    toggleFlip();
+  });
+
   if (reduce || !finePointer) return;
 
   // Heart cursor follower
@@ -66,8 +86,6 @@
       card.style.transition = 'transform 0.6s ease, box-shadow 0.3s ease';
     });
   }
-
-  tilt(document.getElementById('stack'), document.getElementById('card'), 7, 0, 1400);
 
   document.querySelectorAll('[data-tilt]').forEach(function (item) {
     tilt(item, item.querySelector('.lib-card'), 5, -4, 0);
