@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rethinking How We Schedule Live Classes · Priyanka Chandran</title>
+<meta name="description" content="How I redesigned live-class scheduling at Entri Elevate so one session could serve learners across batches and courses.">
+<link rel="canonical" href="https://pepperandpixels.com/live-classes/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rethinking How We Schedule Live Classes">
+<meta property="og:description" content="How I redesigned live-class scheduling at Entri Elevate so one session could serve learners across batches and courses.">
+<meta property="og:url" content="https://pepperandpixels.com/live-classes/">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/case-study.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="bar"><a href="/">← Priyanka Chandran</a><span>Entri Elevate · Case study</span></header>
+<main id="main" class="cs">
+<p class="eyebrow">Entri Elevate · Case study · 4 min read</p>
+<h1>Rethinking How We Schedule Live Classes</h1>
+<p class="dek"><em>How I redesigned live-class scheduling at Entri Elevate so one session could serve learners across batches and courses.</em></p>
+<p class="callout"><strong>In short:</strong> Live classes could be scheduled for only one batch at a time, so we set up the same session again and again. I separated the <em>topic</em> from the <em>session</em>, moved topic setup into the course structure, and rebuilt scheduling. The project documentation estimated annual savings of about ₹24 lakh across 8 courses.</p>
+<dl class="glance"><div><dt>Role</dt><dd>Product Designer</dd></div><div><dt>Timeline</dt><dd>May–July 2025</dd></div><div><dt>Team</dt><dd>CTO, Academic Team, Developers</dd></div><div><dt>Platforms</dt><dd>Academic Dashboard, Learner App and Web</dd></div><div><dt>Tools</dt><dd>Figma</dd></div></dl>
+<h2 id="it-started-with-a-scheduling-problem">It started with a scheduling problem</h2>
+<p>At Entri Elevate, some live classes were optional sessions that helped learners prepare for placements, such as mock interviews and communication skills.</p>
+<p>The problem was that a live class could be scheduled for only one batch at a time. Picture a batch of 30 learners where only two want a particular session. The academic team still had to organise a class for that batch alone, even though learners from other batches and courses could have joined the same session. The workaround was sharing a student link, which wasn’t a real scheduling solution.</p>
+<p>My first instinct was to let the team select multiple batches while scheduling. But as I walked through the existing workflow, I realised the problem was bigger than batch selection. Class names were inconsistent, learners couldn’t tell what a session would cover, and parts of the setup felt disconnected from each other.</p>
+<p><strong>The structure of live classes needed rethinking, not just the scheduling screen.</strong></p>
+<div class="figs figs-2"><figure><a href="/img/live-classes/01.webp" target="_blank" rel="noopener" aria-label="Open full-size image: Initial exploration of scheduling live class"><img src="/img/live-classes/01.webp" alt="Initial exploration of scheduling live class" loading="lazy" decoding="async"></a><figcaption>Initial exploration of scheduling live class</figcaption></figure><figure><a href="/img/live-classes/02.webp" target="_blank" rel="noopener" aria-label="Open full-size image: Initial exploration of adding multiple batches into live class"><img src="/img/live-classes/02.webp" alt="Initial exploration of adding multiple batches into live class" loading="lazy" decoding="async"></a><figcaption>Initial exploration of adding multiple batches into live class</figcaption></figure></div>
+<h2 id="separating-the-topic-from-the-session">Separating the topic from the session</h2>
+<p>In a discussion with our CTO, we explored splitting a live class’s topic from its scheduled occurrence. I took that idea and worked out how it would fit the existing product. It introduced two concepts:</p>
+<ul><li><strong>Live Class Template (LCT):</strong> the reusable topic, such as <em>Introduction to HTML</em>.</li><li><strong>Live Class Instance (LCI):</strong> the session scheduled for a date and time, with a faculty member and selected batches.</li></ul>
+<p>The topic is what you want to teach. The instance is when and to whom.</p>
+<div class="figs figs-1"><figure><a href="/img/live-classes/03.webp" target="_blank" rel="noopener" aria-label="Open full-size image: Flow chart of the LCT and LCI system"><img src="/img/live-classes/03.webp" alt="Flow chart of the LCT and LCI system" loading="lazy" decoding="async"></a><figcaption>Flow chart of the LCT and LCI system</figcaption></figure></div>
+<p>I explored around six variations of the workflow using flowcharts and Figma. The key decision was where templates should be created. At first I placed them inside the scheduling flow, but a template represents a topic, so it belonged with the rest of the course content. That meant the academic team could set up live-class topics while building a course and schedule sessions whenever they needed.</p>
+<div class="figs figs-4"><figure><a href="/img/live-classes/04.webp" target="_blank" rel="noopener" aria-label="Open full-size image: Illustration: It started with a scheduling problem"><img src="/img/live-classes/04.webp" alt="Illustration: It started with a scheduling problem" loading="lazy" decoding="async"></a></figure><figure><a href="/img/live-classes/05.webp" target="_blank" rel="noopener" aria-label="Open full-size image: Illustration: It started with a scheduling problem"><img src="/img/live-classes/05.webp" alt="Illustration: It started with a scheduling problem" loading="lazy" decoding="async"></a></figure><figure><a href="/img/live-classes/06.webp" target="_blank" rel="noopener" aria-label="Open full-size image: Different variations explored, which includes a table format"><img src="/img/live-classes/06.webp" alt="Different variations explored, which includes a table format" loading="lazy" decoding="async"></a><figcaption>Different variations explored, which includes a table format</figcaption></figure><figure><a href="/img/live-classes/07.webp" target="_blank" rel="noopener" aria-label="Open full-size image: Live class template being a part of the course content"><img src="/img/live-classes/07.webp" alt="Live class template being a part of the course content" loading="lazy" decoding="async"></a><figcaption>Live class template being a part of the course content</figcaption></figure></div>
+<h2 id="making-prerequisites-reusable">Making prerequisites reusable</h2>
+<p>Some live classes required learners to finish specific videos or quizzes first. Setting this up meant linking content IDs, which was hard to understand and easy to get wrong.</p>
+<div class="figs figs-1"><figure><a href="/img/live-classes/08.webp" target="_blank" rel="noopener" aria-label="Open full-size image: Exploration of addition of prerequisites"><img src="/img/live-classes/08.webp" alt="Exploration of addition of prerequisites" loading="lazy" decoding="async"></a><figcaption>Exploration of addition of prerequisites</figcaption></figure></div>
+<p>I attached prerequisites to the template instead of each session. Once configured, every session of that topic inherits them, so expectations stay consistent across batches.</p>
+<div class="figs figs-1"><figure><a href="/img/live-classes/09.webp" target="_blank" rel="noopener" aria-label="Open full-size image: Prerequisites are attached to the LCT"><img src="/img/live-classes/09.webp" alt="Prerequisites are attached to the LCT" loading="lazy" decoding="async"></a><figcaption>Prerequisites are attached to the LCT</figcaption></figure></div>
+<p>This also had to work for learners. Someone facing a locked class needs to know why it’s locked and what to do next, so the learner app shows exactly which lessons unlock it.</p>
+<div class="figs figs-1"><figure><a href="/img/live-classes/10.webp" target="_blank" rel="noopener" aria-label="Open full-size image: Telling learners why a class is locked and what unlocks it."><img src="/img/live-classes/10.webp" alt="Telling learners why a class is locked and what unlocks it." loading="lazy" decoding="async"></a><figcaption>Telling learners why a class is locked and what unlocks it.</figcaption></figure></div>
+<h2 id="taming-the-complexity-of-scheduling">Taming the complexity of scheduling</h2>
+<p>As the workflow grew, the scheduling screen got crowded. It had to handle courses, templates, batches, weeks, parts and prerequisites at once. My early table layout stopped working as combinations multiplied, and even removing a single selection needed careful thought.</p>
+<p>I made two changes:</p>
+<ol><li><strong>Split scheduling into two stages.</strong> First, set up the live-class details, then choose courses and batches.</li><li><strong>Moved from a table to cards.</strong> Each course gets its own card, which makes the information easier to scan and edit.</li></ol>
+<p>One more rule shaped the design: a single session could cover up to two topics, even from different courses. The card layout kept those relationships visible without confusing the setup.</p>
+<div class="figs figs-2"><figure><a href="/img/live-classes/11.webp" target="_blank" rel="noopener" aria-label="Open full-size image: Illustration: It started with a scheduling problem"><img src="/img/live-classes/11.webp" alt="Illustration: It started with a scheduling problem" loading="lazy" decoding="async"></a></figure><figure><a href="/img/live-classes/12.webp" target="_blank" rel="noopener" aria-label="Open full-size image: Comparison of the ideation and the final flow"><img src="/img/live-classes/12.webp" alt="Comparison of the ideation and the final flow" loading="lazy" decoding="async"></a><figcaption>Comparison of the ideation and the final flow</figcaption></figure></div>
+<h2 id="designing-for-implementation">Designing for implementation</h2>
+<p>A workflow with this many rules needed more than polished screens. I built flowcharts of how templates and instances relate, annotated the selection rules, and documented edge cases so developers knew how each combination should behave. I worked across the academic dashboard and the learner app and web, so the experience held together end to end.</p>
+<p>The developer raised an edge case about the recorded live when 2 LCTs across 2 parts are combined. We duplicated the recording to avoid confusion for users and not break their continuity while learning.</p>
+<p>Before launch, I checked the build against the intended experience.</p>
+<div class="figs figs-1"><figure><a href="/img/live-classes/13.webp" target="_blank" rel="noopener" aria-label="Open full-size image: Expected behaviour across scheduling and prerequisite scenarios."><img src="/img/live-classes/13.webp" alt="Expected behaviour across scheduling and prerequisite scenarios." loading="lazy" decoding="async"></a><figcaption>Expected behaviour across scheduling and prerequisite scenarios.</figcaption></figure></div>
+<h2 id="the-outcome">The outcome</h2>
+<p>The academic team could now build reusable live-class topics, set prerequisites once alongside course content, and schedule one session across batches and courses. They no longer had to re-create the same class for every batch.</p>
+<p>The first few days had a learning curve as the team adapted. They were confused about the topic names to be added and the addition of batches across the 2-step process.</p>
+<p>Across the 8 courses covered, the project documentation estimated annual savings of approximately <strong>₹24 lakh</strong> from consolidating duplicate sessions for the same topic. This is a reported project estimate, not a figure I calculated myself.</p>
+<h2 id="what-i-took-away">What I took away</h2>
+<p>I’m most proud of how a simple-looking scheduling request became a set of connected decisions: how academic teams build courses and manage sessions, how developers read the rules, and how learners know what to do next.</p>
+<p><em>Designing and testing the six workflow variations with the academic and dev teams showed me how content codes are structured and how much of the team’s time went into admin tasks like this. I came away understanding the system far better than when I started.</em></p>
+<p>The lesson I keep from it is that the most useful change isn’t always another option in the flow. Sometimes it’s stepping back, questioning the structure, and finding a simpler way for the pieces to fit.</p>
+<nav class="cs-end" aria-label="More">
+  <a class="next" href="/beyond-access/"><small>Next case study</small>Beyond Access: Designing a Smarter Learning Journey →</a>
+  <p><a href="https://medium.com/@priyankattru/rethinking-how-we-schedule-live-classes-cd67a9f1c660" target="_blank" rel="noopener">Also on Medium ↗</a> · <a href="/">Back to all work</a></p>
+</nav>
+</main>
+</body>
+</html>
