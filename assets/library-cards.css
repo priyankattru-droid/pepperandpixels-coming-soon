@@ -16,7 +16,6 @@
   height: 100%;
   min-height: 44px;
   position: relative;
-  overflow: hidden; /* keeps the landing stamp inside the card */
   color: var(--ink);
   text-decoration: none;
   border-radius: 4px;
@@ -56,33 +55,6 @@ a.lib-card:focus-visible { transform: translateY(-4px); }
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--ink-faded);
-}
-
-/* ── Stamp ── */
-.stamp {
-  display: inline-block;
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  color: var(--accent);
-  border: 2px solid currentColor;
-  border-radius: 3px;
-  padding: 0.2rem 0.45rem;
-  transform: rotate(-4deg);
-}
-
-/* stamp "lands" on scroll-into-view; only hidden when JS is running */
-.js .stamp {
-  opacity: 0;
-  transform: rotate(-4deg) scale(1.4);
-  transition: opacity 0.15s ease, transform 0.35s cubic-bezier(0.3, 1.6, 0.5, 1);
-}
-
-.js .is-in .stamp {
-  opacity: 1;
-  transform: rotate(-4deg) scale(1);
 }
 
 .lib-title {
@@ -143,6 +115,3 @@ a.lib-card:focus-visible { transform: translateY(-4px); }
   .lib-due  { margin: 0 -1rem; padding: 0 1rem; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .js .stamp { opacity: 1; transform: rotate(-4deg); }
-}

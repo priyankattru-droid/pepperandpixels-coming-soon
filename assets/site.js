@@ -1,23 +1,6 @@
 (function () {
-  document.documentElement.classList.add('js');
-
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-
-  // Stamps land when a card scrolls into view
-  var items = document.querySelectorAll('.shelf-item');
-  if (reduce || !('IntersectionObserver' in window)) {
-    items.forEach(function (el) { el.classList.add('is-in'); });
-  } else {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('is-in');
-        io.unobserve(entry.target);
-      });
-    }, { threshold: 0.4 });
-    items.forEach(function (el) { io.observe(el); });
-  }
 
   // Hero note flips to show "hi" (tap on phones, click on desktop)
   var stack = document.getElementById('stack');
