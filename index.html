@@ -43,6 +43,8 @@
       --shadow:       rgba(43, 35, 38, 0.08);
       --shadow-hover: rgba(122, 31, 61, 0.14);
       --focus:        #7A1F3D;
+      --cloud-fill:   #F0B319;
+      --cloud-line:   #383838;
       --font-hand:    'Kalam', 'Segoe Print', 'Bradley Hand', cursive;
     }
 
@@ -309,22 +311,41 @@
       padding: 3rem 2.25rem;
     }
 
-    .section-label {
-      font-size: 0.75rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--ink-faded);
-      margin-bottom: 1.5rem;
+    /* headings sit in a hand-drawn cloud: fill + outline via masks */
+    .cloud {
+      position: relative;
+      isolation: isolate;
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      width: min(100%, 420px);
+      aspect-ratio: 589 / 124;
+      padding: 0 1rem 0.1em 11%;
+      margin-bottom: 1.75rem;
+      font-family: 'Libre Baskerville', serif;
+      font-weight: 700;
+      font-size: clamp(1.2rem, 5vw, 1.45rem);
+      line-height: 1.1;
+      color: var(--ink);
     }
 
-    .section-label::after {
+    .cloud::before,
+    .cloud::after {
       content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--rule);
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+    }
+
+    .cloud::before {
+      background: var(--cloud-fill);
+      -webkit-mask: url('assets/cloud-fill.svg') 0 0 / 100% 100% no-repeat;
+              mask: url('assets/cloud-fill.svg') 0 0 / 100% 100% no-repeat;
+    }
+
+    .cloud::after {
+      background: var(--cloud-line);
+      -webkit-mask: url('assets/cloud-line.svg') 0 0 / 100% 100% no-repeat;
+              mask: url('assets/cloud-line.svg') 0 0 / 100% 100% no-repeat;
     }
 
     .hand-note {
@@ -332,7 +353,7 @@
       font-size: 1.25rem;
       line-height: 1;
       color: var(--accent);
-      margin: -0.75rem 0 1rem 0.25rem;
+      margin: -0.75rem 0 1rem 0.5rem;
       transform: rotate(-3deg);
       transform-origin: left center;
     }
@@ -357,14 +378,6 @@
     .do-list strong { color: var(--ink); font-weight: 500; }
 
     /* ── Contact ── */
-    .talk-heading {
-      font-family: 'Libre Baskerville', serif;
-      font-style: italic;
-      font-size: clamp(2.2rem, 8vw, 3rem);
-      line-height: 1.1;
-      margin-bottom: 1.5rem;
-    }
-
     .btn {
       display: inline-flex;
       align-items: center;
@@ -605,7 +618,7 @@
     </section>
 
     <section class="section" aria-labelledby="do-heading">
-      <h2 class="section-label" id="do-heading">What I do</h2>
+      <h2 class="cloud" id="do-heading">What I do</h2>
       <ul class="do-list">
         <li><strong>Research:</strong> surveys, interviews and the patterns underneath them</li>
         <li><strong>Strategy:</strong> turning what learners do into product decisions</li>
@@ -614,7 +627,7 @@
     </section>
 
     <section class="section" aria-labelledby="work-heading">
-      <h2 class="section-label" id="work-heading">Selected work</h2>
+      <h2 class="cloud" id="work-heading">Selected work</h2>
       <p class="hand-note" aria-hidden="true">start here ↓</p>
       <ul class="shelf">
         <li class="shelf-item" data-tilt>
@@ -650,7 +663,7 @@
     </section>
 
     <section class="section" aria-labelledby="talk-heading">
-      <h2 class="talk-heading" id="talk-heading">Let’s talk.</h2>
+      <h2 class="cloud" id="talk-heading">Let’s talk.</h2>
       <a class="btn" href="mailto:priyankattru@gmail.com?subject=Hello%20from%20pepperandpixels.com">Say hello <span class="arrow" aria-hidden="true">→</span></a>
       <p class="talk-note">Open to product design roles, collaborations and conversations about research and edtech.</p>
       <div class="links">
