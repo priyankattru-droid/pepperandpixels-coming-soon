@@ -53,6 +53,16 @@
       -moz-osx-font-smoothing: grayscale;
     }
 
+    /* Pencil cursor (test): hotspot is the tip, top-left */
+    @media (hover: hover) and (pointer: fine) {
+      html {
+        cursor: url('assets/cursor-pencil.png') 2 2, auto;
+        cursor: -webkit-image-set(url('assets/cursor-pencil.png') 1x, url('assets/cursor-pencil@2x.png') 2x) 2 2, auto;
+        cursor: image-set(url('assets/cursor-pencil.png') 1x, url('assets/cursor-pencil@2x.png') 2x) 2 2, auto;
+      }
+      a, button { cursor: pointer; }
+    }
+
     h1, h2, h3 { text-wrap: balance; font-weight: 400; }
     p { text-wrap: pretty; }
     .eyebrow, .meta-row { text-wrap: balance; }
