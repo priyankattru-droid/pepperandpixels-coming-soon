@@ -11,7 +11,8 @@
   <meta property="og:description" content="Research-led product designer. Five years in EdTech. Kochi, India." />
   <meta property="og:url" content="https://pepperandpixels.com/" />
   <meta property="og:type" content="website" />
-  <link rel="icon" type="image/svg+xml" href="P_P.svg" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inconsolata:wght@400;500&display=swap" rel="stylesheet" />
@@ -65,30 +66,10 @@
     /* ── Top bar ── */
     .topbar {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
       align-items: baseline;
       padding: 1.6rem 2.25rem;
     }
-
-    .brand {
-      font-family: 'Libre Baskerville', serif;
-      font-style: italic;
-      font-size: 1.15rem;
-      letter-spacing: 0.04em;
-      position: relative;
-      padding-bottom: 3px;
-    }
-
-    .brand::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0;
-      width: 100%;
-      height: 1px;
-      background: var(--rule);
-    }
-
-    .brand-amp { color: var(--accent); }
 
     .version-label {
       font-size: 0.7rem;
@@ -495,7 +476,6 @@
 <body>
 
   <header class="topbar">
-    <span class="brand">pepper <span class="brand-amp">&amp;</span> pixels</span>
     <span class="version-label">Version 0.1</span>
   </header>
 
