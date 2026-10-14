@@ -259,19 +259,19 @@
       animation: fadeUp 0.5s ease 0.6s forwards;
     }
 
+    /* handwritten name artwork */
     .name {
-      font-family: 'Libre Baskerville', serif;
-      font-style: italic;
-      font-size: clamp(3.1rem, 11vw, 4.6rem);
-      line-height: 0.92;
-      letter-spacing: -0.01em;
-      margin-bottom: 1.75rem;
+      margin-bottom: 1.5rem;
       opacity: 0;
       animation: fadeUp 0.65s ease 0.7s forwards;
     }
 
-    .name .second { display: block; }
-    .name .period { color: var(--accent); }
+    .name img {
+      display: block;
+      width: 100%;
+      max-width: 340px;
+      height: auto;
+    }
 
     .divider {
       height: 1px;
@@ -578,8 +578,7 @@
             <p class="eyebrow">Human Behaviour &nbsp;·&nbsp; Strategy &nbsp;·&nbsp; Craft</p>
 
             <h1 class="name">
-              Priyanka
-              <span class="second">Chandran<span class="period" aria-hidden="true">.</span></span>
+              <img src="assets/name.webp" width="640" height="409" alt="Priyanka Chandran" fetchpriority="high" />
             </h1>
 
             <div class="divider" aria-hidden="true"></div>
