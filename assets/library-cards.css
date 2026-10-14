@@ -61,25 +61,20 @@ a.lib-card:focus-visible { transform: translateY(-4px); }
   background: url('card-rule-single.svg') bottom / 100% 4px no-repeat;
 }
 
-/* summary and tags sit on the card's grey ruled lines, edge to edge */
-.lib-summary,
-.lib-tags {
-  margin-inline: -1.75rem;
-  padding-inline: 1.75rem;
-  line-height: 1.75rem;
-  background: url('card-rule-grey.svg') 0 0 / 100% 1.75rem repeat-y;
-}
 
 .lib-summary {
   font-family: 'Libre Baskerville', serif;
   font-style: italic;
   font-size: 0.95rem;
+  line-height: 1.7;
   color: var(--ink-mid);
+  margin: 0.5rem 0 0.75rem;
 }
 
 .lib-tags {
   margin-bottom: 1.25rem;
   font-size: 0.85rem;
+  line-height: 1.6;
   color: var(--ink-faded);
 }
 
@@ -112,7 +107,5 @@ a.lib-card:focus-visible { transform: translateY(-4px); }
 
 @media (max-width: 480px) {
   .lib-card { padding: 1.4rem 1.25rem 0.4rem; border-image-width: 36px; }
-  .lib-summary,
-  .lib-tags { margin-inline: -1.25rem; padding-inline: 1.25rem; }
 }
 
