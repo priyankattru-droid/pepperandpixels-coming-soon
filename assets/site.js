@@ -104,12 +104,12 @@
       var y = (e.clientY - rect.top) / rect.height - 0.5;
       card.style.transform = 'perspective(700px) translateY(' + lift + 'px) rotateY(' + x * strength +
         'deg) rotateX(' + -y * strength + 'deg) scale(1.01)';
-      card.style.transition = 'transform 0.1s ease, box-shadow 0.3s ease';
+      card.style.transition = 'transform 0.1s ease, filter 0.3s ease';
     });
 
     wrap.addEventListener('mouseleave', function () {
       card.style.transform = '';
-      card.style.transition = 'transform 0.6s ease, box-shadow 0.3s ease';
+      card.style.transition = 'transform 0.6s ease, filter 0.3s ease';
     });
   }
 
