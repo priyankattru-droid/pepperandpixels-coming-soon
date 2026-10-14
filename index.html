@@ -317,9 +317,10 @@
       isolation: isolate;
       display: flex;
       align-items: center;
-      width: min(100%, 420px);
+      width: 100%;
       aspect-ratio: 589 / 124;
-      padding: 0 1rem 0.1em 1.85rem;
+      max-height: 88px;  /* wide screens: stretch sideways, keep the height */
+      padding: 0 1rem 0.1em max(1.85rem, 9%);
       margin-bottom: 1.75rem;
       font-family: 'Libre Baskerville', serif;
       font-weight: 700;
