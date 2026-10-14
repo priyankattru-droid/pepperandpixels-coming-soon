@@ -154,18 +154,12 @@
     .face {
       grid-area: 1 / 1;
       position: relative;
-      background-color: var(--card-bg);
-      background-image: radial-gradient(circle, var(--card-dot) 1px, transparent 1px);
-      background-size: 18px 18px;
-      border-radius: 4px;
+      /* hand-drawn note outline, stretched to fit */
+      background: url('assets/sticky-note.svg') center / 100% 100% no-repeat;
       padding: 3rem 2.5rem 2.25rem;
-      box-shadow: 0 6px 24px var(--shadow);
-      transition: box-shadow 0.3s ease;
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
     }
-
-    .stack:hover .face { box-shadow: 0 12px 40px var(--shadow-hover); }
 
     .face-back {
       transform: rotateY(180deg);
