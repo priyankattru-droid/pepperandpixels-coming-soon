@@ -138,18 +138,6 @@ a.lib-card:focus-visible { transform: translateY(-4px); }
 .lib-cta span { display: inline-block; transition: transform 0.2s ease; }
 .shelf-item:hover .lib-cta span { transform: translateX(3px); }
 
-/* ── Coming soon: faded, not a link ── */
-.lib-card--returned {
-  background-color: var(--page-bg);
-  box-shadow: 0 1px 2px var(--shadow);
-}
-
-.lib-card--returned .lib-top { border-bottom-color: var(--rule); }
-.lib-card--returned .lib-title,
-.lib-card--returned .lib-summary { color: var(--ink-faded); }
-.lib-card--returned .stamp { color: var(--ink-faded); }
-.lib-card--returned .lib-due { background: transparent; border-top: 1px dashed var(--rule); }
-
 @media (max-width: 480px) {
   .lib-card { padding: 1.1rem 1rem 0; }
   .lib-due  { margin: 0 -1rem; padding: 0 1rem; }
