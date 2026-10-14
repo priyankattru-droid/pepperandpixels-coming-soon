@@ -199,7 +199,11 @@
       transition: color 0.2s ease, transform 0.3s ease;
     }
 
-    .flip-btn:hover { color: var(--accent); transform: rotate(-30deg); }
+    /* invisible unless reached by keyboard */
+    .flip-btn:not(:focus-visible) {
+      opacity: 0;
+      pointer-events: none;
+    }
 
     .flip-btn:focus-visible {
       outline: 3px solid var(--focus);
