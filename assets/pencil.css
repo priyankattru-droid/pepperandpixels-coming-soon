@@ -1,0 +1,95 @@
+/* Scrolling pencil: grows with scroll progress. Decorative only. */
+
+:root {
+  --pencil-body:    #F0B319;
+  --pencil-ink:     #2F2F2F;
+  --pencil-tip:     #DBBEAB;
+  --pencil-ferrule: #CC923B;
+  --pencil-eraser:  #EE7171;
+  --pu: 2px;       /* px per pencil unit; artwork is 9 units wide */
+  --p: 0.4;        /* scroll progress 0–1, set by site.js */
+}
+
+.pc-body    { fill: var(--pencil-body); }
+.pc-ink     { fill: var(--pencil-ink); }
+.pc-tip     { fill: var(--pencil-tip); }
+.pc-ferrule { fill: var(--pencil-ferrule); }
+.pc-eraser  { fill: var(--pencil-eraser); }
+
+.pencil {
+  position: fixed;
+  top: 12px;
+  bottom: 12px;
+  right: 8px;
+  width: calc(9 * var(--pu));
+  z-index: 5;
+  pointer-events: none;
+}
+
+.pencil-defs { position: absolute; }
+
+.pencil svg { display: block; }
+.pencil-top, .pencil-tip { overflow: visible; }
+
+.pencil-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(18 * var(--pu));
+  z-index: 2;
+}
+
+/* body region: from under the ferrule to above the tip at full length */
+.pencil-shaft,
+.pencil-mover {
+  position: absolute;
+  top: calc(16 * var(--pu));
+  bottom: calc(35 * var(--pu));
+  left: 0;
+  width: 100%;
+}
+
+.pencil-shaft { overflow: hidden; }
+
+.pencil-grain,
+.pencil-mover {
+  transform: translateY(calc((var(--p) - 1) * 100%));
+  will-change: transform;
+}
+
+.pencil-grain {
+  width: 100%;
+  height: 100%;
+}
+
+.pencil-end {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.pencil-cap {
+  width: 100%;
+  height: calc(18.2 * var(--pu));
+}
+
+.pencil-tip {
+  width: calc(8 * var(--pu));
+  height: calc(17 * var(--pu));
+  margin: calc(-0.3 * var(--pu)) 0 0 calc(0.19 * var(--pu));
+}
+
+/* phones: thinner pencil inside the 24px side gutter */
+@media (max-width: 480px) {
+  .pencil {
+    --pu: 1.1px;
+    right: 4px;
+  }
+}
+
+@media (max-width: 340px) {
+  .pencil { display: none; }
+}

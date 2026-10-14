@@ -2,6 +2,24 @@
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
+  // Scrolling pencil: body length follows scroll progress (static under reduced motion)
+  var pencil = document.querySelector('.pencil');
+  if (pencil && !reduce) {
+    var ticking = false;
+    var updatePencil = function () {
+      ticking = false;
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      var p = max > 0 ? Math.min(Math.max(window.scrollY / max, 0), 1) : 1;
+      pencil.style.setProperty('--p', p.toFixed(4));
+    };
+    var requestPencil = function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(updatePencil); }
+    };
+    window.addEventListener('scroll', requestPencil, { passive: true });
+    window.addEventListener('resize', requestPencil, { passive: true });
+    updatePencil();
+  }
+
   // Hero note flips to show "hi" (tap on phones, click on desktop)
   var stack = document.getElementById('stack');
   var flipBtn = stack.querySelector('.flip-btn');
