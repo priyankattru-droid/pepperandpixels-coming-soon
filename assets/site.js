@@ -39,6 +39,31 @@
     toggleFlip();
   });
 
+  // Touch: pencil draws a tiny heart where you tap (taps only, not scrolls)
+  if (!reduce) {
+    var down = null, doodle = null;
+
+    document.addEventListener('pointerdown', function (e) {
+      down = e.pointerType === 'touch' ? { x: e.clientX, y: e.clientY, t: Date.now() } : null;
+    }, { passive: true });
+
+    document.addEventListener('pointerup', function (e) {
+      if (!down || Date.now() - down.t > 500 ||
+          Math.abs(e.clientX - down.x) > 10 || Math.abs(e.clientY - down.y) > 10) return;
+      if (doodle) doodle.remove();
+      doodle = document.createElement('div');
+      doodle.className = 'tap-doodle';
+      doodle.setAttribute('aria-hidden', 'true');
+      doodle.style.left = e.clientX + 'px';
+      doodle.style.top = e.clientY + 'px';
+      doodle.innerHTML = '<svg viewBox="0 0 24 24"><path pathLength="1" d="M12 21C5 15 2 11 2 7.5a4.5 4.5 0 0 1 10-1.5 4.5 4.5 0 0 1 10 1.5C22 11 19 15 12 21Z"/></svg>' +
+        '<img src="assets/cursor-pencil@2x.png" alt="" width="32" height="32">';
+      document.body.appendChild(doodle);
+      var el = doodle;
+      setTimeout(function () { el.remove(); }, 1100);
+    }, { passive: true });
+  }
+
   if (reduce || !finePointer) return;
 
   // Heart cursor follower
