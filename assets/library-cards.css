@@ -1,0 +1,160 @@
+/* Library-card case studies. Colours come from the variables in index.html */
+
+.shelf {
+  list-style: none;
+  display: grid;
+  gap: 1.75rem;
+}
+
+@media (min-width: 720px) {
+  .shelf { grid-template-columns: 1fr 1fr; }
+}
+
+.lib-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 44px;
+  position: relative;
+  overflow: hidden; /* keeps the landing stamp inside the card */
+  color: var(--ink);
+  text-decoration: none;
+  border-radius: 4px;
+  padding: 1.25rem 1.25rem 0;
+  background-color: var(--card-bg);
+  /* faint ruled lines, like an index card */
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0, transparent 1.75rem,
+    var(--card-rule) 1.75rem, var(--card-rule) calc(1.75rem + 1px)
+  );
+  background-position: 0 3.4rem;
+  box-shadow: 0 1px 2px var(--shadow), 0 6px 20px var(--shadow);
+  transition: transform 0.6s ease, box-shadow 0.3s ease;
+  will-change: transform;
+}
+
+.shelf-item:hover a.lib-card,
+a.lib-card:focus-visible {
+  box-shadow: 0 2px 4px var(--shadow), 0 14px 36px var(--shadow-hover);
+}
+
+a.lib-card:focus-visible { transform: translateY(-4px); }
+
+.lib-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding-bottom: 0.75rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid var(--accent);
+}
+
+.lib-no {
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-faded);
+}
+
+/* ── Stamp ── */
+.stamp {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--accent);
+  border: 2px solid currentColor;
+  border-radius: 3px;
+  padding: 0.2rem 0.45rem;
+  transform: rotate(-4deg);
+}
+
+/* stamp "lands" on scroll-into-view; only hidden when JS is running */
+.js .stamp {
+  opacity: 0;
+  transform: rotate(-4deg) scale(1.4);
+  transition: opacity 0.15s ease, transform 0.35s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+.js .is-in .stamp {
+  opacity: 1;
+  transform: rotate(-4deg) scale(1);
+}
+
+.lib-title {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 1.3rem;
+  line-height: 1.35;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+
+.lib-summary {
+  font-family: 'Libre Baskerville', serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  line-height: 1.75rem;
+  color: var(--ink-mid);
+  margin-bottom: 1rem;
+}
+
+.lib-tags {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--ink-faded);
+  margin-bottom: 1.25rem;
+  margin-top: auto;
+}
+
+/* "Date due" strip */
+.lib-due {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  min-height: 48px;
+  margin: 0 -1.25rem;
+  padding: 0 1.25rem;
+  background: var(--accent-tint);
+  border-radius: 0 0 4px 4px;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.lib-due-label { color: var(--ink-faded); }
+
+.lib-cta {
+  color: var(--accent);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.lib-cta span { display: inline-block; transition: transform 0.2s ease; }
+.shelf-item:hover .lib-cta span { transform: translateX(3px); }
+
+/* ── Coming soon: faded, not a link ── */
+.lib-card--returned {
+  background-color: var(--page-bg);
+  box-shadow: 0 1px 2px var(--shadow);
+}
+
+.lib-card--returned .lib-top { border-bottom-color: var(--rule); }
+.lib-card--returned .lib-title,
+.lib-card--returned .lib-summary { color: var(--ink-faded); }
+.lib-card--returned .stamp { color: var(--ink-faded); }
+.lib-card--returned .lib-due { background: transparent; border-top: 1px dashed var(--rule); }
+
+@media (max-width: 480px) {
+  .lib-card { padding: 1.1rem 1rem 0; }
+  .lib-due  { margin: 0 -1rem; padding: 0 1rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .stamp { opacity: 1; transform: rotate(-4deg); }
+}

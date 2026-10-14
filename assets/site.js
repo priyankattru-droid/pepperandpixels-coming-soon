@@ -1,0 +1,75 @@
+(function () {
+  document.documentElement.classList.add('js');
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  // Stamps land when a card scrolls into view
+  var items = document.querySelectorAll('.shelf-item');
+  if (reduce || !('IntersectionObserver' in window)) {
+    items.forEach(function (el) { el.classList.add('is-in'); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-in');
+        io.unobserve(entry.target);
+      });
+    }, { threshold: 0.4 });
+    items.forEach(function (el) { io.observe(el); });
+  }
+
+  if (reduce || !finePointer) return;
+
+  // Heart cursor follower
+  var heart = document.createElement('div');
+  heart.className = 'heart';
+  heart.setAttribute('aria-hidden', 'true');
+  heart.textContent = '♥';
+  document.body.appendChild(heart);
+
+  var mouseX = 0, mouseY = 0, heartX = 0, heartY = 0;
+
+  document.addEventListener('mousemove', function (e) {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    heart.style.opacity = '0.5';
+  });
+
+  document.addEventListener('mouseleave', function () { heart.style.opacity = '0'; });
+
+  function animateHeart() {
+    heartX += (mouseX - heartX) * 0.12;
+    heartY += (mouseY - heartY) * 0.12;
+    heart.style.transform = 'translate(' + heartX + 'px,' + heartY + 'px) translate(-50%, -50%)';
+    requestAnimationFrame(animateHeart);
+  }
+  animateHeart();
+
+  // 3D tilt: listen on the wrapper, transform the inner card
+  function tilt(wrap, card, strength, lift, delay) {
+    var active = delay === 0;
+    if (!active) setTimeout(function () { active = true; }, delay);
+
+    wrap.addEventListener('mousemove', function (e) {
+      if (!active) return;
+      var rect = wrap.getBoundingClientRect();
+      var x = (e.clientX - rect.left) / rect.width - 0.5;
+      var y = (e.clientY - rect.top) / rect.height - 0.5;
+      card.style.transform = 'perspective(700px) translateY(' + lift + 'px) rotateY(' + x * strength +
+        'deg) rotateX(' + -y * strength + 'deg) scale(1.01)';
+      card.style.transition = 'transform 0.1s ease, box-shadow 0.3s ease';
+    });
+
+    wrap.addEventListener('mouseleave', function () {
+      card.style.transform = '';
+      card.style.transition = 'transform 0.6s ease, box-shadow 0.3s ease';
+    });
+  }
+
+  tilt(document.getElementById('stack'), document.getElementById('card'), 7, 0, 1400);
+
+  document.querySelectorAll('[data-tilt]').forEach(function (item) {
+    tilt(item, item.querySelector('.lib-card'), 5, -4, 0);
+  });
+})();
