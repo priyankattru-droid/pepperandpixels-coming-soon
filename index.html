@@ -417,18 +417,13 @@
       max-width: 34rem;
     }
 
-    /* hand-framed portrait, pinned at a slight tilt; straightens on hover */
+    /* hand-framed portrait: sits straight with no shadow, like the name note */
     .talk { display: grid; gap: 1.75rem; }
 
     .talk-photo {
       width: min(240px, 70%);
       height: auto;
-      transform: rotate(2deg);
-      filter: drop-shadow(0 6px 12px var(--shadow));
-      transition: transform 0.3s ease;
     }
-
-    .talk-photo:hover { transform: rotate(0deg); }
 
     @media (min-width: 720px) {
       .talk {
