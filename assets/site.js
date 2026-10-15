@@ -119,10 +119,16 @@
 
   var mouseX = 0, mouseY = 0, heartX = 0, heartY = 0;
 
-  document.addEventListener('mousemove', function (e) {
+  // real mouse only: a tap's emulated mouse events must not drag the heart to the tap spot
+  document.addEventListener('pointermove', function (e) {
+    if (e.pointerType !== 'mouse') return;
     mouseX = e.clientX;
     mouseY = e.clientY;
     heart.style.opacity = '0.5';
+  });
+
+  document.addEventListener('pointerdown', function (e) {
+    if (e.pointerType !== 'mouse') heart.style.opacity = '0';
   });
 
   document.addEventListener('mouseleave', function () { heart.style.opacity = '0'; });
