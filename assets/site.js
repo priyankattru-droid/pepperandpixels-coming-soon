@@ -40,6 +40,15 @@
     toggleFlip();
   });
 
+  // Pencil scratch: plays with the tap heart (touch) and on mouse clicks (desktop)
+  var scratch = new Audio('assets/pencil-scratch.mp3');
+  scratch.preload = 'auto';
+  scratch.volume = 0.5;
+  function playScratch() {
+    scratch.currentTime = 0;
+    scratch.play().catch(function () {});
+  }
+
   // Touch: pencil draws a tiny heart where you tap (taps only, not scrolls)
   if (!reduce) {
     var down = null, doodle = null;
@@ -60,6 +69,7 @@
       doodle.innerHTML = '<svg viewBox="0 0 24 24"><path pathLength="1" d="M12 21C5 15 2 11 2 7.5a4.5 4.5 0 0 1 10-1.5 4.5 4.5 0 0 1 10 1.5C22 11 19 15 12 21Z"/></svg>' +
         '<img src="assets/cursor-pencil@2x.png" alt="" width="32" height="32">';
       document.body.appendChild(doodle);
+      playScratch();
       var el = doodle;
       setTimeout(function () { el.remove(); }, 1100);
     }, { passive: true });
@@ -79,6 +89,11 @@
       h.classList.add('will-pop');
       popper.observe(h);
     });
+  }
+
+  // Desktop: mouse clicks only (detail is 0 for keyboard-triggered clicks)
+  if (finePointer) {
+    document.addEventListener('click', function (e) { if (e.detail > 0) playScratch(); });
   }
 
   if (reduce || !finePointer) return;
