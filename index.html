@@ -148,8 +148,10 @@
       transform: rotate(-1.5deg) translateY(3px);
     }
 
-    .stack:hover .paper-back-2 { transform: rotate(5deg) translateY(10px) translateX(5px); }
-    .stack:hover .paper-back-1 { transform: rotate(-2.5deg) translateY(5px); }
+    .stack:hover .paper-back-2,
+    .talk-photo:hover .paper-back-2 { transform: rotate(5deg) translateY(10px) translateX(5px); }
+    .stack:hover .paper-back-1,
+    .talk-photo:hover .paper-back-1 { transform: rotate(-2.5deg) translateY(5px); }
 
     /* ── Flip: the note turns over to show "hi" ── */
     .stack { perspective: 1200px; cursor: pointer; }
@@ -417,11 +419,18 @@
       max-width: 34rem;
     }
 
-    /* hand-framed portrait: sits straight with no shadow, like the name note */
+    /* hand-framed portrait: sits straight on the same pink note stack as the name note */
     .talk { display: grid; gap: 1.75rem; }
 
     .talk-photo {
+      position: relative;
       width: min(240px, 70%);
+    }
+
+    .talk-photo img {
+      position: relative;
+      display: block;
+      width: 100%;
       height: auto;
     }
 
@@ -688,7 +697,11 @@
     <section class="section" aria-labelledby="talk-heading">
       <h2 class="cloud" id="talk-heading">Let’s talk.</h2>
       <div class="talk">
-        <img class="talk-photo" src="assets/portrait.webp" width="600" height="600" alt="Priyanka, smiling, in a sleeveless beige top" loading="lazy" decoding="async" />
+        <div class="talk-photo">
+          <div class="paper-back paper-back-2" aria-hidden="true"></div>
+          <div class="paper-back paper-back-1" aria-hidden="true"></div>
+          <img src="assets/portrait.webp" width="600" height="600" alt="Priyanka, smiling, in a sleeveless beige top" loading="lazy" decoding="async" />
+        </div>
         <div>
           <a class="btn" href="mailto:priyankattru@gmail.com?subject=Hello%20from%20pepperandpixels.com">Say hello <span class="arrow" aria-hidden="true">→</span></a>
           <p class="talk-note">Open to product design roles, collaborations and conversations about research and edtech.</p>
