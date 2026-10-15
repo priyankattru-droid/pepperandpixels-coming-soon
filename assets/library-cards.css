@@ -85,24 +85,13 @@ a.lib-card:focus-visible { transform: translateY(-4px); }
   color: var(--ink-faded);
 }
 
-/* "Date due" strip */
-.lib-due {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-  min-height: 56px;
+.lib-cta {
+  align-self: flex-start;
   margin-top: auto;
-  padding-top: 8px;
-  background: url('card-rule-double.svg') top / 100% 10px no-repeat;
+  padding-bottom: 1rem;
   font-size: 0.75rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-}
-
-.lib-due-label { color: var(--ink-faded); }
-
-.lib-cta {
   color: var(--accent);
   font-weight: 500;
   text-decoration: underline;
