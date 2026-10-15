@@ -348,6 +348,15 @@
               mask: url('assets/cloud-line.svg') 0 0 / 100% 100% no-repeat;
     }
 
+    /* pops up on first scroll into view; class is added by site.js, so no JS = visible */
+    .cloud.will-pop {
+      opacity: 0;
+      transform: translateY(14px) scale(0.96);
+      transition: opacity 0.45s ease-out, transform 0.45s ease-out;
+    }
+
+    .cloud.will-pop.is-in { opacity: 1; transform: none; }
+
     .hand-note {
       font-family: var(--font-hand);
       font-size: 1.25rem;

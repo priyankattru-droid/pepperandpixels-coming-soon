@@ -65,6 +65,22 @@
     }, { passive: true });
   }
 
+  // Cloud headings pop up the first time they scroll into view
+  if (!reduce && 'IntersectionObserver' in window) {
+    var popper = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-in');
+        popper.unobserve(entry.target);
+      });
+    }, { threshold: 0.4 });
+
+    document.querySelectorAll('.cloud').forEach(function (h) {
+      h.classList.add('will-pop');
+      popper.observe(h);
+    });
+  }
+
   if (reduce || !finePointer) return;
 
   // Heart cursor follower
