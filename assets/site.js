@@ -49,33 +49,48 @@
     scratch.play().catch(function () {});
   }
 
-  // Pencil draws a tiny heart where you tap or click (not scrolls, drags or right-clicks)
-  if (!reduce) {
-    var down = null, doodle = null;
+  // Pencil draws a tiny heart where you tap or click (not scrolls, drags or right-clicks).
+  // Each heart stays 5s after it finishes drawing, fades, then is removed.
+  var down = null, hearts = [];
+  var DRAW_MS = reduce ? 0 : 600, STAY_MS = 5000, FADE_MS = reduce ? 0 : 350;
 
-    document.addEventListener('pointerdown', function (e) {
-      var ok = e.pointerType === 'touch' || (e.pointerType === 'mouse' && e.button === 0);
-      down = ok ? { x: e.clientX, y: e.clientY, t: Date.now(), mouse: e.pointerType === 'mouse' } : null;
-    }, { passive: true });
-
-    document.addEventListener('pointerup', function (e) {
-      if (!down || Date.now() - down.t > 500 ||
-          Math.abs(e.clientX - down.x) > 10 || Math.abs(e.clientY - down.y) > 10) return;
-      if (doodle) doodle.remove();
-      doodle = document.createElement('div');
-      // with a mouse the pencil cursor is already there, so skip the drawn pencil
-      doodle.className = down.mouse ? 'tap-doodle is-mouse' : 'tap-doodle';
-      doodle.setAttribute('aria-hidden', 'true');
-      doodle.style.left = e.clientX + 'px';
-      doodle.style.top = e.clientY + 'px';
-      doodle.innerHTML = '<svg viewBox="0 0 24 24"><path pathLength="1" d="M12 21C5 15 2 11 2 7.5a4.5 4.5 0 0 1 10-1.5 4.5 4.5 0 0 1 10 1.5C22 11 19 15 12 21Z"/></svg>' +
-        '<img src="assets/cursor-pencil@2x.png" alt="" width="32" height="32">';
-      document.body.appendChild(doodle);
-      playScratch();
-      var el = doodle;
-      setTimeout(function () { el.remove(); }, 1100);
-    }, { passive: true });
+  function dropHeart(h) {
+    clearTimeout(h.timer);
+    h.el.remove();
+    hearts.splice(hearts.indexOf(h), 1);
   }
+
+  document.addEventListener('pointerdown', function (e) {
+    var ok = e.pointerType === 'touch' || (e.pointerType === 'mouse' && e.button === 0);
+    down = ok ? { x: e.clientX, y: e.clientY, t: Date.now(), mouse: e.pointerType === 'mouse' } : null;
+  }, { passive: true });
+
+  document.addEventListener('pointerup', function (e) {
+    if (!down || Date.now() - down.t > 500 ||
+        Math.abs(e.clientX - down.x) > 10 || Math.abs(e.clientY - down.y) > 10) return;
+    var doodle = document.createElement('div');
+    // with a mouse the pencil cursor is already there, so skip the drawn pencil
+    doodle.className = down.mouse ? 'tap-doodle is-mouse' : 'tap-doodle';
+    doodle.setAttribute('aria-hidden', 'true');
+    doodle.style.left = e.clientX + 'px';
+    doodle.style.top = e.clientY + 'px';
+    doodle.innerHTML = '<svg viewBox="0 0 24 24"><path pathLength="1" d="M12 21C5 15 2 11 2 7.5a4.5 4.5 0 0 1 10-1.5 4.5 4.5 0 0 1 10 1.5C22 11 19 15 12 21Z"/></svg>' +
+      '<img src="assets/cursor-pencil@2x.png" alt="" width="32" height="32">';
+    document.body.appendChild(doodle);
+    playScratch();
+
+    var h = { el: doodle };
+    hearts.push(h);
+    h.timer = setTimeout(function () {
+      doodle.classList.add('is-fading');
+      h.timer = setTimeout(function () { dropHeart(h); }, FADE_MS);
+    }, DRAW_MS + STAY_MS);
+  }, { passive: true });
+
+  // leaving the page: stop every pending timer and clear the hearts
+  window.addEventListener('pagehide', function () {
+    hearts.slice().forEach(dropHeart);
+  });
 
   // Cloud headings pop up the first time they scroll into view
   if (!reduce && 'IntersectionObserver' in window) {

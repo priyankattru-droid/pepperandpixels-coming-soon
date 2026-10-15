@@ -515,15 +515,18 @@
       margin: -12px 0 0 -12px;
       pointer-events: none;
       z-index: 9999;
-      animation: doodleOut 0.25s ease 0.75s forwards;
+      transition: opacity 0.35s ease;
     }
+
+    /* site.js adds this 5s after the heart finishes drawing, then removes it */
+    .tap-doodle.is-fading { opacity: 0; }
 
     .tap-doodle svg {
       width: 100%;
       height: 100%;
       overflow: visible;
       fill: none;
-      stroke: var(--accent);
+      stroke: var(--pencil-ink);
       stroke-width: 2;
       stroke-linecap: round;
       stroke-linejoin: round;
@@ -538,7 +541,8 @@
       top: 19px;
       width: 32px;
       height: 32px;
-      animation: doodlePencil 0.6s ease-in-out forwards;
+      animation: doodlePencil 0.6s ease-in-out forwards,
+                 doodleOut 0.25s ease 0.75s forwards;
     }
 
     .tap-doodle.is-mouse img { display: none; }
@@ -599,6 +603,9 @@
         opacity: 1; transform: none; width: 100%;
       }
       .clip-wrap { width: auto; }
+      /* heart appears already drawn, without the moving pencil */
+      .tap-doodle svg { stroke-dashoffset: 0; }
+      .tap-doodle img { display: none; }
     }
   </style>
 </head>
