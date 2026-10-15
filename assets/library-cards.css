@@ -5,21 +5,20 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: flex-start;
   gap: 1.75rem;
 }
 
-/* keep the card artwork's portrait proportions (403 × 643) */
+/* card height comes from its content */
 .shelf-item {
   width: 100%;
   max-width: 480px;
-  aspect-ratio: 403 / 643;
   container-type: inline-size;
 }
 
 .lib-card {
   display: flex;
   flex-direction: column;
-  height: 100%;
   min-height: 44px;
   position: relative;
   color: var(--ink);
@@ -40,6 +39,7 @@ a.lib-card:focus-visible {
 }
 
 a.lib-card:focus-visible { transform: translateY(-4px); }
+a.lib-card:focus-visible .lib-cta { outline: 2px solid var(--focus); outline-offset: 4px; border-radius: 2px; }
 
 .lib-top {
   display: flex;
@@ -79,7 +79,6 @@ a.lib-card:focus-visible { transform: translateY(-4px); }
 }
 
 .lib-tags {
-  margin-bottom: 1.25rem;
   font-size: 0.85rem;
   line-height: 1.6;
   color: var(--ink-faded);
@@ -87,13 +86,13 @@ a.lib-card:focus-visible { transform: translateY(-4px); }
 
 .lib-cta {
   align-self: flex-start;
-  margin-top: auto;
+  margin-top: 64px;
   padding-bottom: 1rem;
-  font-size: 0.75rem;
+  font-size: 1rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--accent);
-  font-weight: 500;
+  font-weight: 700;
   text-decoration: underline;
   text-underline-offset: 3px;
 }
