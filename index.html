@@ -417,6 +417,28 @@
       max-width: 34rem;
     }
 
+    /* hand-framed portrait, pinned at a slight tilt; straightens on hover */
+    .talk { display: grid; gap: 1.75rem; }
+
+    .talk-photo {
+      width: min(240px, 70%);
+      height: auto;
+      transform: rotate(2deg);
+      filter: drop-shadow(0 6px 12px var(--shadow));
+      transition: transform 0.3s ease;
+    }
+
+    .talk-photo:hover { transform: rotate(0deg); }
+
+    @media (min-width: 720px) {
+      .talk {
+        grid-template-columns: minmax(0, 1fr) 240px;
+        align-items: center;
+        gap: 2.5rem;
+      }
+      .talk-photo { grid-column: 2; grid-row: 1; width: 100%; }
+    }
+
     .links { display: flex; flex-wrap: wrap; gap: 0 1.5rem; }
 
     .link {
@@ -668,13 +690,18 @@
 
     <section class="section" aria-labelledby="talk-heading">
       <h2 class="cloud" id="talk-heading">Let’s talk.</h2>
-      <a class="btn" href="mailto:priyankattru@gmail.com?subject=Hello%20from%20pepperandpixels.com">Say hello <span class="arrow" aria-hidden="true">→</span></a>
-      <p class="talk-note">Open to product design roles, collaborations and conversations about research and edtech.</p>
-      <div class="links">
-        <a href="https://www.linkedin.com/in/priyanka-chandran/" class="link" target="_blank" rel="noopener">LinkedIn <span class="arrow" aria-hidden="true">↗</span></a>
-        <a href="https://dribbble.com/Priyanka_96" class="link" target="_blank" rel="noopener">Dribbble <span class="arrow" aria-hidden="true">↗</span></a>
-        <a href="https://github.com/priyankattru-droid" class="link" target="_blank" rel="noopener">GitHub <span class="arrow" aria-hidden="true">↗</span></a>
-        <a href="https://medium.com/@priyankattru" class="link" target="_blank" rel="noopener">Medium <span class="arrow" aria-hidden="true">↗</span></a>
+      <div class="talk">
+        <img class="talk-photo" src="assets/portrait.webp" width="600" height="600" alt="Priyanka, smiling, in a sleeveless beige top" loading="lazy" decoding="async" />
+        <div>
+          <a class="btn" href="mailto:priyankattru@gmail.com?subject=Hello%20from%20pepperandpixels.com">Say hello <span class="arrow" aria-hidden="true">→</span></a>
+          <p class="talk-note">Open to product design roles, collaborations and conversations about research and edtech.</p>
+          <div class="links">
+            <a href="https://www.linkedin.com/in/priyanka-chandran/" class="link" target="_blank" rel="noopener">LinkedIn <span class="arrow" aria-hidden="true">↗</span></a>
+            <a href="https://dribbble.com/Priyanka_96" class="link" target="_blank" rel="noopener">Dribbble <span class="arrow" aria-hidden="true">↗</span></a>
+            <a href="https://github.com/priyankattru-droid" class="link" target="_blank" rel="noopener">GitHub <span class="arrow" aria-hidden="true">↗</span></a>
+            <a href="https://medium.com/@priyankattru" class="link" target="_blank" rel="noopener">Medium <span class="arrow" aria-hidden="true">↗</span></a>
+          </div>
+        </div>
       </div>
     </section>
   </main>
