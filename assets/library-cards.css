@@ -2,15 +2,18 @@
 
 .shelf {
   list-style: none;
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 1.75rem;
 }
 
 /* keep the card artwork's portrait proportions (403 × 643) */
-.shelf-item { aspect-ratio: 403 / 643; }
-
-@media (min-width: 720px) {
-  .shelf { grid-template-columns: repeat(2, minmax(0, 403px)); }
+.shelf-item {
+  width: 100%;
+  max-width: 480px;
+  aspect-ratio: 403 / 643;
+  container-type: inline-size;
 }
 
 .lib-card {
@@ -21,7 +24,8 @@
   position: relative;
   color: var(--ink);
   text-decoration: none;
-  padding: 2rem 1.85rem 0.75rem;
+  /* inner spacing scales with the card (was 2rem 1.85rem 0.75rem at 403px) */
+  padding: 7.9cqi 7.3cqi 3cqi;
   /* hand-drawn card: corners sliced so they never stretch */
   border: 0 solid transparent;
   border-image: url('card-border.svg') 64 fill / 64px stretch;
