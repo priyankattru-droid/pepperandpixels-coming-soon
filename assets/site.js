@@ -40,7 +40,7 @@
     toggleFlip();
   });
 
-  // Pencil scratch: plays with the tap heart (touch) and on mouse clicks (desktop)
+  // Pencil scratch: plays as the heart is drawn
   var scratch = new Audio('assets/pencil-scratch.mp3');
   scratch.preload = 'auto';
   scratch.volume = 0.5;
@@ -49,12 +49,13 @@
     scratch.play().catch(function () {});
   }
 
-  // Touch: pencil draws a tiny heart where you tap (taps only, not scrolls)
+  // Pencil draws a tiny heart where you tap or click (not scrolls, drags or right-clicks)
   if (!reduce) {
     var down = null, doodle = null;
 
     document.addEventListener('pointerdown', function (e) {
-      down = e.pointerType === 'touch' ? { x: e.clientX, y: e.clientY, t: Date.now() } : null;
+      var ok = e.pointerType === 'touch' || (e.pointerType === 'mouse' && e.button === 0);
+      down = ok ? { x: e.clientX, y: e.clientY, t: Date.now(), mouse: e.pointerType === 'mouse' } : null;
     }, { passive: true });
 
     document.addEventListener('pointerup', function (e) {
@@ -62,7 +63,8 @@
           Math.abs(e.clientX - down.x) > 10 || Math.abs(e.clientY - down.y) > 10) return;
       if (doodle) doodle.remove();
       doodle = document.createElement('div');
-      doodle.className = 'tap-doodle';
+      // with a mouse the pencil cursor is already there, so skip the drawn pencil
+      doodle.className = down.mouse ? 'tap-doodle is-mouse' : 'tap-doodle';
       doodle.setAttribute('aria-hidden', 'true');
       doodle.style.left = e.clientX + 'px';
       doodle.style.top = e.clientY + 'px';
@@ -89,11 +91,6 @@
       h.classList.add('will-pop');
       popper.observe(h);
     });
-  }
-
-  // Desktop: mouse clicks only (detail is 0 for keyboard-triggered clicks)
-  if (finePointer) {
-    document.addEventListener('click', function (e) { if (e.detail > 0) playScratch(); });
   }
 
   if (reduce || !finePointer) return;

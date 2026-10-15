@@ -506,7 +506,7 @@
       transition: opacity 0.3s ease;
     }
 
-    /* ── Tap doodle (touch): pencil draws a tiny heart where you tap ── */
+    /* ── Tap doodle: pencil draws a tiny heart where you tap or click ── */
     .tap-doodle {
       position: fixed;
       width: 24px;
@@ -539,6 +539,8 @@
       height: 32px;
       animation: doodlePencil 0.6s ease-in-out forwards;
     }
+
+    .tap-doodle.is-mouse img { display: none; }
 
     @keyframes doodleDraw { to { stroke-dashoffset: 0; } }
     @keyframes doodlePencil {
